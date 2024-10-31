@@ -21,8 +21,8 @@ This should fix the MS store and the Company Portal.
 "@
 
 # Display ASCII Art, Description, and GitHub info
-Write-Host $asciiArt -ForegroundColor Cyan
-Write-Host $githubText -ForegroundColor $PassColour
+Write-Host $asciiArt -ForegroundColor DarkMagenta
+Write-Host $githubText -ForegroundColor Cyan
 Write-Host $description -ForegroundColor Yellow
 
 # Function to run the main script logic
