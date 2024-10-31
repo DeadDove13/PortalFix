@@ -21,7 +21,7 @@ This should fix the MS store and the Company Portal.
 "@
 
 # Display ASCII Art, Description, and GitHub info
-Write-Host $asciiArt -ForegroundColor DarkMagenta
+Write-Host $asciiArt -ForegroundColor Magenta
 Write-Host $githubText -ForegroundColor Cyan
 Write-Host $description -ForegroundColor Yellow
 
@@ -73,29 +73,21 @@ function Main {
     else {
         Write-Host "Failed to confirm installation of $packageName." -ForegroundColor $ErrorColour
     }
-
-    # Wait for user input before closing
-    Write-Host "Press Enter to close..."
-    Read-Host
 }
 
 # Prompt the user to press 1 to run the script or 0 to close
-do {
-    $choice = Read-Host "Press 1 to run the script or 0 to close"
+$choice = Read-Host "Press 1 to run the script or 0 to close"
 
-    # Execute based on user's choice
-    if ($choice -eq "1") {
-        Main
-        break
-    }
-    elseif ($choice -eq "0") {
-        Write-Host "Exiting the script." -ForegroundColor White
-        Exit
-    }
-    else {
-        Write-Host "B R U H!!! Invalid input. Please try again." -ForegroundColor $ErrorColour
-    }
-} while ($true)
+if ($choice -eq "1") {
+    Main
+}
+elseif ($choice -eq "0") {
+    Write-Host "Exiting the script." -ForegroundColor White
+    Exit
+}
+else {
+    Write-Host "B R U H!!! Invalid input. Please try again." -ForegroundColor $ErrorColour
+}
 
 # Wait for the user to press Enter before exiting
 Read-Host -Prompt "Press Enter to exit"
