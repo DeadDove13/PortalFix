@@ -44,14 +44,14 @@ function Main {
     $package = Get-AppxPackage -Name $packageName -AllUsers
 
     if (-not $package) {
-        Write-Output "$packageName is not installed. Installing..."
+        Write-Host "$packageName is not installed. Installing..."
 
         # Ensure the path exists before attempting to install
         if (Test-Path $appxPath) {
             try {
                 # Install the package
                 Add-AppxPackage -Path $appxPath
-                Write-Output "$packageName installation complete." -ForegroundColor $PassColour
+                Write-Host "$packageName installation complete." -ForegroundColor $PassColour
             }
             catch {
                 Write-Error "Failed to install $packageName. Error: $_"
@@ -62,20 +62,20 @@ function Main {
         }
     }
     else {
-        Write-Output "$packageName is already installed." -ForegroundColor $PassColour
+        Write-Host "$packageName is already installed." -ForegroundColor $PassColour
     }
 
     # Confirm installation
     $package = Get-AppxPackage -Name $packageName -AllUsers
     if ($package) {
-        Write-Output "$packageName is successfully installed." -ForegroundColor $PassColour
+        Write-Host "$packageName is successfully installed." -ForegroundColor $PassColour
     }
     else {
-        Write-Output "Failed to confirm installation of $packageName." -ForegroundColor $ErrorColour
+        Write-Host "Failed to confirm installation of $packageName." -ForegroundColor $ErrorColour
     }
 
     # Wait for user input before closing
-    Write-Output "Press Enter to close..."
+    Write-Host "Press Enter to close..."
     Read-Host
 }
 
