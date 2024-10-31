@@ -27,46 +27,52 @@ Write-Host $description -ForegroundColor Yellow
 
 # Function to run the main script logic
 function Main {
-    # Check for administrator privileges
-    if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-        Write-Host "This script requires administrator privileges. Please run this script as an administrator." -ForegroundColor $ErrorColour
-        # Wait for user input before closing
-        Read-Host -Prompt "Press Enter to exit"
-        return
-    }
-
     # Define the package name
     $packageName = "Microsoft.UI.Xaml.2.7"
+    
     # Define the path to the appx package (assumes it's in the same folder as this script)
-    $appxPath = ".\microsoft.ui.xaml.2.7.3\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx"
+    $appxPath = Join-Path -Path $PSScriptRoot -ChildPath "microsoft.ui.xaml.2.7.3\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx"
+
+    # Verify that the script is running with admin privileges
+    if (-not [Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) {
+        Write-Host "This script must be run as an administrator!" -ForegroundColor $ErrorColour
+        Read-Host -Prompt "Press Enter to exit"
+        Exit
+    }
 
     # Check if the package is already installed
     $package = Get-AppxPackage -Name $packageName -AllUsers
 
     if (-not $package) {
-        Write-Host "$packageName is not installed. Installing..." -ForegroundColor $ErrorColour
-        try {
-            # Install the package
-            Add-AppxPackage -Path $appxPath
-            Write-Host "$packageName installation complete." -ForegroundColor $PassColour
-        }
-        catch {
-            Write-Host "Failed to install $packageName. Error: $_" -ForegroundColor $ErrorColour
+        Write-Output "$packageName is not installed. Installing..."
+
+        # Ensure the path exists before attempting to install
+        if (Test-Path $appxPath) {
+            try {
+                # Install the package
+                Add-AppxPackage -Path $appxPath
+                Write-Output "$packageName installation complete." -ForegroundColor $PassColour
+            }
+            catch {
+                Write-Error "Failed to install $packageName. Error: $_"
+            }
+        } else {
+            Write-Error "The specified path for $packageName does not exist: $appxPath"
         }
     } else {
-        Write-Host "$packageName is already installed." -ForegroundColor $PassColour
+        Write-Output "$packageName is already installed." -ForegroundColor $PassColour
     }
 
     # Confirm installation
     $package = Get-AppxPackage -Name $packageName -AllUsers
     if ($package) {
-        Write-Host "$packageName is successfully installed." -ForegroundColor $PassColour
+        Write-Output "$packageName is successfully installed." -ForegroundColor $PassColour
     } else {
-        Write-Host "Failed to confirm installation of $packageName." -ForegroundColor $ErrorColour
+        Write-Output "Failed to confirm installation of $packageName." -ForegroundColor $ErrorColour
     }
 
     # Wait for user input before closing
-    Write-Host "Press Enter to close..."
+    Write-Output "Press Enter to close..."
     Read-Host
 }
 
@@ -88,3 +94,5 @@ do {
     }
 } while ($true)
 
+# Wait for the user to press Enter before exiting
+Read-Host -Prompt "Press Enter to exit"
