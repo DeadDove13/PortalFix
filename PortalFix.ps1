@@ -34,7 +34,7 @@ function Main {
     $appxPath = Join-Path -Path $PSScriptRoot -ChildPath "microsoft.ui.xaml.2.7.3\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx"
 
     # Verify that the script is running with admin privileges
-    if (-not [Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) {
+    if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
         Write-Host "This script must be run as an administrator!" -ForegroundColor $ErrorColour
         Read-Host -Prompt "Press Enter to exit"
         Exit
@@ -56,10 +56,12 @@ function Main {
             catch {
                 Write-Error "Failed to install $packageName. Error: $_"
             }
-        } else {
+        }
+        else {
             Write-Error "The specified path for $packageName does not exist: $appxPath"
         }
-    } else {
+    }
+    else {
         Write-Output "$packageName is already installed." -ForegroundColor $PassColour
     }
 
@@ -67,7 +69,8 @@ function Main {
     $package = Get-AppxPackage -Name $packageName -AllUsers
     if ($package) {
         Write-Output "$packageName is successfully installed." -ForegroundColor $PassColour
-    } else {
+    }
+    else {
         Write-Output "Failed to confirm installation of $packageName." -ForegroundColor $ErrorColour
     }
 
