@@ -16,13 +16,18 @@
 1. **Download or clone this repository** and place both `PortalFix.ps1` and `Run.bat` in the same directory.
 
 2. **Run the Script**:
-
    - Double-click `Run.bat` to execute `PortalFix.ps1` with elevated privileges.
    - The script will check if `Microsoft.UI.Xaml.2.7` is installed. If missing, it will proceed with the installation.
 
 3. **Follow the Prompts**:
    - You will be prompted to start the script or exit.
    - Once the process completes, press **Enter** to close the script.
+
+---
+
+## Alternative Solution
+
+If this script does not resolve issues with the Microsoft Store or Company Portal, a guide on how to fix `Microsoft.UI.Xaml.2.7` can be found [here](https://answers.microsoft.com/en-us/windows/forum/all/what-is-microsoftuixaml27-and-why-dont-i-have-it/9e5753be-3b5f-4975-ac00-a28344c710a6).
 
 ---
 
