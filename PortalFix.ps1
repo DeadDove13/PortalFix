@@ -76,18 +76,20 @@ function Main {
 }
 
 # Prompt the user to press 1 to run the script or 0 to close
-$choice = Read-Host "Press 1 to run the script or 0 to close"
+do {
+    $choice = Read-Host "Press 1 to run the script or 0 to close"
 
-if ($choice -eq "1") {
-    Main
-}
-elseif ($choice -eq "0") {
-    Write-Host "Exiting the script." -ForegroundColor White
-    Exit
-}
-else {
-    Write-Host "B R U H!!! Invalid input. Please try again." -ForegroundColor $ErrorColour
-}
+    if ($choice -eq "1") {
+        Main
+    }
+    elseif ($choice -eq "0") {
+        Write-Host "Exiting the script." -ForegroundColor White
+        Exit
+    }
+    else {
+        Write-Host "B R U H!!! Invalid input. Please try again." -ForegroundColor $ErrorColour
+    }
+} while ($true)
 
 # Wait for the user to press Enter before exiting
 Read-Host -Prompt "Press Enter to exit"
