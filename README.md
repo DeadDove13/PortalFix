@@ -16,6 +16,7 @@
 1. **Download or clone this repository** and place both `PortalFix.ps1` and `Run.bat` in the same directory.
 
 2. **Run the Script**:
+
    - Double-click `Run.bat` to execute `PortalFix.ps1` with elevated privileges.
    - The script will check if `Microsoft.UI.Xaml.2.7` is installed. If missing, it will proceed with the installation.
 
@@ -31,12 +32,14 @@ If this script does not resolve issues with the Microsoft Store or Company Porta
 
 ---
 
-## GitHub
+## Use Case
 
-- [DeadDove13](https://github.com/DeadDove13)
+This script is designed for situations where Intune management might overlook certain dependencies required by applications like the Microsoft Store and the Company Portal. Specifically, it installs the **Microsoft.UI.Xaml.2.7** package, a UI component essential for these applications to run. If this package is missing, the Microsoft Store or Company Portal may not run at all, causing disruptions in accessing or updating applications.
+
+Running this script ensures that the **Microsoft.UI.Xaml.2.7** package is installed, preventing such issues and maintaining a smooth user experience on Intune-managed devices.
 
 ---
 
-## Description
+## GitHub
 
-This script checks if the `Microsoft.UI.Xaml.2.7` package is installed and installs it if missing. This should fix issues with the MS Store and the Company Portal.
+- [DeadDove13](https://github.com/DeadDove13)
